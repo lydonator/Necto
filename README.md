@@ -3,7 +3,7 @@
 To download and help compute Necto the community bot, first make sure you have downloaded:
 1. Rocket League
 2. bakkesmod
-3. python >=3.8
+3. python >=3.9
 4. git
 
 
