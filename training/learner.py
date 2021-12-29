@@ -9,14 +9,15 @@ from rocket_learn.ppo import PPO
 from rocket_learn.rollout_generator.redis_rollout_generator import RedisRolloutGenerator
 from training.agent import get_agent
 from training.obs import NectoObsBuilder
+from training.parser import NectoAction
 from training.reward import NectoRewardFunction
 
 WORKER_COUNTER = "worker-counter"
 
 config = dict(
     seed=123,
-    actor_lr=3e-4,
-    critic_lr=3e-4,
+    actor_lr=1e-4,
+    critic_lr=1e-4,
     n_steps=1_000_000,
     batch_size=40_000,
     minibatch_size=10_000,
@@ -27,7 +28,7 @@ config = dict(
 
 
 if __name__ == "__main__":
-    run_id = None
+    run_id = "obbbntaa"
 
     _, ip, password = sys.argv
     wandb.login(key=os.environ["WANDB_KEY"])
@@ -44,14 +45,17 @@ if __name__ == "__main__":
 
     def rew():
         # return CombinedReward.from_zipped(
-        #     DiffReward(VelocityPlayerToBallReward()),
-        #     (EventReward(touch=10)),
+        #     (DiffReward(LiuDistancePlayerToBallReward()), 0.05),
+        #     (DiffReward(LiuDistanceBallToGoalReward()), 10),
+        #     (EventReward(touch=0.05, goal=10)),
         # )
         # return NectoRewardFunction(goal_w=0, shot_w=0, save_w=0, demo_w=0, boost_w=0)
         return NectoRewardFunction()
 
+    def act():
+        return NectoAction()
 
-    rollout_gen = RedisRolloutGenerator(redis, obs, rew,
+    rollout_gen = RedisRolloutGenerator(redis, obs, rew, act,
                                         save_every=logger.config.iterations_per_save,
                                         logger=logger, clear=run_id is None)
 
@@ -68,8 +72,9 @@ if __name__ == "__main__":
         logger=logger,
     )
 
-    # if run_id is not None:
-    #     alg.load("ppos/rocket-learn_1634138943.7612503/rocket-learn_60/checkpoint.pt")
+    if run_id is not None:
+        # alg.load("ppos/rocket-learn_1638479738.2639134/rocket-learn_1000/checkpoint.pt")
+        alg.load("ppos/rocket-learn_1639878346.7736878/rocket-learn_680/checkpoint.pt")
 
     log_dir = "E:\\log_directory\\"
     repo_dir = "E:\\repo_directory\\"

@@ -37,7 +37,7 @@ class BetterRandom(StateSetter):  # Random state with some triangular distributi
 
         for car in state_wrapper.cars:
             for _ in range(10):  # 10 retries
-                ball_dist = np.random.exponential(2300)
+                ball_dist = np.random.exponential(BALL_MAX_SPEED)
                 ball_car = rand_vec3(ball_dist)
                 car_pos = state_wrapper.ball.position + ball_car
                 if abs(car_pos[0]) < LIM_X \
@@ -74,14 +74,15 @@ class BetterRandom(StateSetter):  # Random state with some triangular distributi
 
 
 class NectoStateSetter(StateSetter):
-    def __init__(self):
+    def __init__(self, kickoff_prob=0.01):
         super().__init__()
-        # self.default = DefaultState()
+        # TODO sample from SSL replays, kickoff-like
+        self.kickoff_prob = kickoff_prob
+        self.default = DefaultState()
         self.random = BetterRandom()
 
     def reset(self, state_wrapper: StateWrapper):
-        self.random.reset(state_wrapper)
-        # if np.random.random() < 0.9:
-        #     self.random.reset(state_wrapper)
-        # else:
-        #     self.default.reset(state_wrapper)
+        if np.random.random() < self.kickoff_prob:
+            self.default.reset(state_wrapper)
+        else:
+            self.random.reset(state_wrapper)
