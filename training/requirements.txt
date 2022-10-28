@@ -1,6 +1,6 @@
 wheel==0.36.2
 redis==3.5.3
-numpy==1.20.3
+numpy==1.22.2
 torch==1.9.0+cu102
 plotly==5.3.1
 wandb==0.12.1
