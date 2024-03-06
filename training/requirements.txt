@@ -1,4 +1,4 @@
-wheel==0.36.2
+wheel==0.38.0
 redis==3.5.3
 numpy==1.20.3
 torch==1.9.0+cu102
@@ -14,3 +14,4 @@ pillow==8.2.0
 gym==0.18.3
 rlgym
 rlgym-tools
+setuptools>=65.5.1 # not directly required, pinned by Snyk to avoid a vulnerability
