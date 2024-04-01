@@ -10,7 +10,7 @@ trueskill==0.4.5
 msgpack==1.0.2
 msgpack_numpy==0.4.7.1
 EARL-pytorch==0.4.3
-pillow==8.2.0
+pillow==10.3.0
 gym==0.18.3
 rlgym
 rlgym-tools
