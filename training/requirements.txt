@@ -14,3 +14,4 @@ pillow==8.2.0
 gym==0.18.3
 rlgym
 rlgym-tools
+zipp>=3.19.1 # not directly required, pinned by Snyk to avoid a vulnerability
