@@ -14,3 +14,5 @@ pillow==8.2.0
 gym==0.18.3
 rlgym
 rlgym-tools
+protobuf>=4.25.8 # not directly required, pinned by Snyk to avoid a vulnerability
+urllib3>=2.5.0 # not directly required, pinned by Snyk to avoid a vulnerability
